@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import HOC from "../HOC";
 import "./ToDoList.css"
 export default function ToDoList({AppState}){
+    const [selected, setSelected]=useState([]);
     const navigate=useHistory();
     const [newTask, setNewTask]=useState("");
     const {toDoList,setToDoList}=AppState;
@@ -23,6 +24,21 @@ export default function ToDoList({AppState}){
   function UpdateTask(task){
     navigate.push(`/Form`,{state:{props:{...task},title:"UPDATE",}})
   } 
+  function handleDeleteSelected(){
+      console.log(selected);
+    let temp=[...toDoList];
+     selected.map(id=>{
+        temp=temp.filter(task=>{
+            if(task.id!==id){
+              return task;
+            }
+        })
+     })
+     setToDoList(temp);
+     setSelected([])
+     navigate.push("/");
+  }
+  console.log(selected);
   return (
       <div className="list" >
           <div className='header'>ToDoList</div>
@@ -32,11 +48,18 @@ export default function ToDoList({AppState}){
           </div>
           <button type="button" className="btn btn-primary btn-sm" style={{height:"35px"}} onClick={()=>{AddTask()}}>Add</button>
           </div>
+          <div className='delete-selected-block'>
+              { selected.length>=1 &&
+              <button onClick={()=>{handleDeleteSelected()}} className="btn btn-primary btn-sm" style={{height:"35px"}}>
+                  Delete selected 
+              </button>
+              }
+          </div>
           {toDoList && toDoList.map((ele,i)=>(             
-                  <ListCard task={ele} handleDelete={handleDelete} handleUpdate={UpdateTask} key={i}/>             
+                  <ListCard task={ele} handleDelete={handleDelete} handleUpdate={UpdateTask}  setSelected={setSelected} selected={selected} key={i}/>             
           )) } 
+         
       </div>
   )
 }
 
-//ToDoList =HOC(ToDoList);

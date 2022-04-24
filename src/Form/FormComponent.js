@@ -8,7 +8,7 @@ const FormComponent = ({AppState}) => {
   const location=useLocation();
   console.log(location);
   const {title,props}=location.state.state;
-  let state=AppState.toDoList;
+  let state=AppState.toDoList || [];
   let setState=AppState.setToDoList;
   return (
  
@@ -39,7 +39,7 @@ const FormComponent = ({AppState}) => {
                 
                 return {
                   taskName: values.taskName,
-                  name: values.description,                  
+                  description: values.description,                  
                   id: props.id,
                 };
               } else {
@@ -49,22 +49,25 @@ const FormComponent = ({AppState}) => {
           setState([...temp]);
         }
         if (title === 'ADD') {
-          let temp = state && [...state];         
+          
+          let temp = (state && [...state])||[];  
+             
           temp.push({
             taskName: values.taskName,
-            name: values.description,  
-            id: `${state[state.length - 1].id + 1}`,
+            description: values.description,  
+            id: state.length>0?state[state.length - 1].id + 1:1,
           });
-
+         
           setState([...temp]);
         }
+        navigate.push("/");
       }}
     >
       {({ isSubmitting }) => (
         <Form>
           <table>
             <tr>
-              <th className="table-header-item table-header" style={{ backgroundColor: 'rgba(79, 235, 183, 0.788' }}>Task Name : </th>
+              <th className="table-header-item table-header" >Task Name : </th>
               <td
                 className="table-row-item"
                 
@@ -77,9 +80,9 @@ const FormComponent = ({AppState}) => {
                 <ErrorMessage name="taskName" component="div" />
               </td>
             </tr>
-
+            <br/>
             <tr>
-              <th className="table-header-item table-header" style={{ backgroundColor: 'rgba(79, 235, 183, 0.788' }}>Description : </th>
+              <th className="table-header-item table-header" >Description : </th>
               <td
                 className="table-row-item"
                 
@@ -92,17 +95,12 @@ const FormComponent = ({AppState}) => {
                 <ErrorMessage name="description" component="div" />
               </td>
             </tr>
-
+            <br/>
             <tr>
               <th>
                 <button
                   type="submit"
-                  style={{
-                    width: '100px',
-                    height: '50px',
-                    color: 'black',
-                    fontSize: '20px',
-                  }}
+                  className="btn btn-primary btn-sm" style={{height:"35px"}}
                 >
                   {title}
                 </button>

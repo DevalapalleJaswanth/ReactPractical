@@ -6,23 +6,29 @@ import Home from "./compnents/Home/index";
 import ToDoList from "./ToDoList";
 import HOC from "./HOC";
 import FormComponent from "./Form";
-
+import Details from "./Details";
 function App({AppState}) {
     
     console.log(AppState);
     return (
-      //<AppContext.Provider  value={{...AppState}}> 
-    <Router> 
+      <>
+    <Router>
+      <div style={{height:"100px", background:"black"}}>
+      </div> 
       <div>
-        <h1 style={{ color: "#b1b0b0",fontSize: "22px"}}><Link to="/" style={{textDecoration:"none"}}>ToDoList</Link></h1>
+        <h1 style={{fontSize: "22px", background:"rgb(89 87 87)"}}><Link to="/" style={{ color: "#b1b0b0",textDecoration:"none"}}>ToDoList</Link></h1>
       </div>     
       <Switch>
         <Route path='/Home' exact component={Home} />
         <Route path='/' exact component={toDoList} />
         <Route path='/Form' exact component={form} />
+        <Route path='/Details/:id' exact component={Details} />
       </Switch>
+      
     </Router>
-    //</AppContext.Provider>
+   <div style={{height:"100px", background:"black",marginTop:AppState.toDoList.length<=2?"250px":"150px"}}>
+   </div> 
+   </>
   );
 }
 App = HOC(App);

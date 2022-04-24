@@ -7,6 +7,7 @@
     justify-content: space-between;
     padding:20px;
     max-width: 850px;
+    width:100%;  
     font-size: 15px;
 }
 .inner-card{
@@ -24,3 +25,10 @@
     width:40px;
     text-align:center;
 }
+
+@media(min-width:800px){
+  .card{
+      width:800px
+  }
+}
+
