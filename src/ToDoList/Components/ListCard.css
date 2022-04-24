@@ -1,0 +1,26 @@
+.card{
+    border:1px solid grey;
+    border-radius:10px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding:20px;
+    max-width: 850px;
+    font-size: 15px;
+}
+.inner-card{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    gap:50px;
+}
+.delete-button{
+    width:40px;
+    text-align:center;
+}
+.edit-button{
+    width:40px;
+    text-align:center;
+}
