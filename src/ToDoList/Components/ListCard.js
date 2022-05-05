@@ -17,11 +17,21 @@ export default function ListCard({task,handleDelete, handleUpdate, selected, set
       }
       setSelected([...temp]);
     }
+    const selectedTask=()=>{
+        console.log(selected);
+        let temp=selected && selected.map(id=>{
+            if(task.id===id){
+                return "line-through"
+            }
+            
+        })
+        return temp[0];
+    }
     return(
         <div className="card">
           <div className="inner-card">
           <div><input type="checkbox" value={task.taskName} onChange={()=>{handleSelected(task)}} /></div>
-          <div onClick={()=>{navigate.push(`/Details/${task.id}`,{state:{...task}})}}>{task.taskName}</div>
+          <div onClick={()=>{navigate.push(`/Details/${task.id}`,{state:{...task}})}} style={{ textDecoration:selectedTask()}}>{task.taskName}</div>
           </div>
           <div  className="inner-card" style={{gap:"0px"}}>
           <div onClick={()=>{handleUpdate(task)}} className="edit-button"><Pencil color="blue"/> </div>
